@@ -9,18 +9,44 @@ namespace Models.Abstract {
         Vector3 _startPosition;
         Vector3 _targerPosition;
 
-        public float Speed;
-        public float EndPosition;
+        [SerializeField]
+        State _moveState = State.Up;
+
+        public float Speed = 5;
+        public float EndPosition = 1;
+        public float TimeToHide = 2;
 
         protected virtual void Start() {
-            _startPosition = transform.position;
-            _targerPosition = transform.position + Vector3.up * EndPosition;
-            _distance = Vector3.Distance(_startPosition, _targerPosition);
-            _startTime = Time.time;
+            SetParameterToMove(transform.position + Vector3.up * EndPosition);
         }
 
         protected virtual void Update() {
-            MoveItem();
+            switch (_moveState) {
+                case State.Stay: break;
+                case State.Up:
+                    MoveItem();
+                    if (transform.position.y >= _targerPosition.y) {
+                        _moveState = State.Stay;
+                        InvokeRepeating("DecrementTimeToHide", TimeToHide, 1);
+                    }
+
+                    break;
+                case
+                State.Down:
+                    MoveItem();
+                    if (transform.position.y <= _targerPosition.y) {
+                        Destroy(gameObject);
+                    }
+                    break;
+            }
+        }
+
+        void DecrementTimeToHide() {
+            TimeToHide--;
+            if (!(TimeToHide <= 1)) return;
+
+            SetParameterToMove(transform.position + Vector3.down * EndPosition);
+            _moveState = State.Down;
         }
 
         void MoveItem() {
@@ -29,8 +55,23 @@ namespace Models.Abstract {
             transform.position = Vector3.Lerp(_startPosition, _targerPosition, fracJourney);
         }
 
+        void SetParameterToMove(Vector3 targetPosition) {
+            _startPosition = transform.position;
+            _targerPosition = targetPosition;
+            _distance = Vector3.Distance(_startPosition, _targerPosition);
+            _startTime = Time.time;
+        }
+
+       
         protected virtual void OnMouseDown() {
             Destroy(gameObject);
+        }
+
+
+        enum State {
+            Up,
+            Down,
+            Stay
         }
     }
 

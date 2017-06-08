@@ -520,7 +520,7 @@ MonoBehaviour:
   HitItems:
   - {fileID: 114421524407274624, guid: 243cef2321b4b914f809ec67611d121c, type: 2}
   Machine: {fileID: 1317540838}
-  Time: 3
+  Time: 1
 --- !u!4 &1972296419
 Transform:
   m_ObjectHideFlags: 0

@@ -9,10 +9,10 @@ namespace Assets.Scripts.Game_Managers {
 	class ItemTimer  : MonoBehaviour {
 		public List<HitItem> HitItems;
 		public BasicMachine Machine;
-		public float Time;
+		public float Time = 3;
 
 		void Start() {
-			InvokeRepeating("DoAction", Time, 1);
+			InvokeRepeating("DoAction", 1, Time);
 		}
 
 		void DoAction() {

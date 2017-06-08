@@ -20,9 +20,13 @@ namespace Models.Abstract {
         }
 
         protected virtual void Update() {
-           var distCovered = (Time.time - _startTime) * Speed;
-           var fracJourney = distCovered / _distance;
-           transform.position = Vector3.Lerp(_startPosition, _targerPosition, fracJourney);
+            MoveItem();
+        }
+
+        void MoveItem() {
+            var distCovered = (Time.time - _startTime) * Speed;
+            var fracJourney = distCovered / _distance;
+            transform.position = Vector3.Lerp(_startPosition, _targerPosition, fracJourney);
         }
 
         protected virtual void OnMouseDown() {

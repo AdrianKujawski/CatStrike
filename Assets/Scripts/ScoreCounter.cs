@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class ScorePointer : PointCounter {
+public class ScoreCounter : PointCounter {
 	public Text ScoreText;
 
 	public override void AddPoint(int value) {

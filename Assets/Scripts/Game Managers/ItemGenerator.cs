@@ -6,10 +6,10 @@ using Models.Abstract;
 using UnityEngine;
 
 namespace Assets.Scripts.Game_Managers {
-	class ItemTimer  : MonoBehaviour {
+	class ItemGenerator  : MonoBehaviour {
 		public List<HitItem> HitItems;
 		public BasicMachine Machine;
-		public float Time = 3;
+		public float Time = 1;
 
 		void Start() {
 			InvokeRepeating("DoAction", 1, Time);
@@ -21,10 +21,9 @@ namespace Assets.Scripts.Game_Managers {
 		}
 
 		HitItem GetRandomHitItem() {
-			var hitItem = HitItems[0];
-			hitItem.Speed = 5;
-			hitItem.EndPosition = 1;
-			return hitItem;
+			var result = UnityEngine.Random.Range(1, 100);
+
+			return result <= 20 ? HitItems[1] : HitItems[0];
 		} 
 	}
 }

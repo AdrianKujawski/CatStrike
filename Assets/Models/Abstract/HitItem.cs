@@ -8,13 +8,12 @@ namespace Models.Abstract {
         float _startTime;
         Vector3 _startPosition;
         Vector3 _targerPosition;
-
-        [SerializeField]
         State _moveState = State.Up;
 
-        public float Speed = 5;
-        public float EndPosition = 1;
-        public float TimeToHide = 2;
+        public static float Speed = 5;
+        public static float EndPosition = 1;
+        public float TimeToHide = 1;
+	    public int ScoreValue = 1;
 
         protected virtual void Start() {
             SetParameterToMove(transform.position + Vector3.up * EndPosition);
@@ -43,7 +42,7 @@ namespace Models.Abstract {
 
         void DecrementTimeToHide() {
             TimeToHide--;
-            if (!(TimeToHide <= 1)) return;
+            if (TimeToHide >= 1) return;
 
             SetParameterToMove(transform.position + Vector3.down * EndPosition);
             _moveState = State.Down;
